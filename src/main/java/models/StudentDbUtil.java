@@ -6,6 +6,9 @@ import java.util.List;
 
 public class StudentDbUtil {
 
+    public StudentDbUtil() {
+    }
+
     public List<Student> getStudents() {
         List<Student> students = new ArrayList<>();
         String sql = "SELECT * FROM student ORDER BY last_name";
