@@ -4,7 +4,7 @@
 <div class="container">
 <div class="row">
     <div class="col-6">
-        <c:forEach var="student" items="${students}">
+        <c:forEach var="student" items="${STUDENT_LIST}">
             <p>${student}</p>
         </c:forEach>
     </div>

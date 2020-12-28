@@ -21,14 +21,18 @@ public class StudentControllerServlet extends HttpServlet {
         studentDbUtil = new StudentDbUtil();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html");
-        listStudents(request, response);
+        try {
+            listStudents(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void listStudents(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Student> students = studentDbUtil.getStudents();
-        request.setAttribute("students", students);
+        request.setAttribute("STUDENT_LIST", students);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view-students.jsp");
         requestDispatcher.forward(request, response);
     }
