@@ -1,4 +1,4 @@
-package foo.kpProject.university;
+package foo.kpProject.university.controllers;
 
 
 import javax.servlet.annotation.WebServlet;
