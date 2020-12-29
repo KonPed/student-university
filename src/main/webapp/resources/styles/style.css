@@ -1,3 +1,7 @@
 body {
     background-color: linen;
 }
+
+.main-screen {
+    margin: 100px;
+}
