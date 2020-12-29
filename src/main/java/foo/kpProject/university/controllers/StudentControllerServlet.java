@@ -41,6 +41,9 @@ public class StudentControllerServlet extends HttpServlet {
                 case "UPDATE" :
                     onUpdateStudent(request, response);
                     break;
+                case "DELETE" :
+                    onDeleteStudent(request, response);
+                    break;
                 default:
                     onListStudents(request, response);
             }
@@ -78,6 +81,12 @@ public class StudentControllerServlet extends HttpServlet {
         String lastName = request.getParameter("last_name");
         String email = request.getParameter("email");
         studentDbUtil.updateStudent(new Student(studentId, firstName, lastName, email));
+        onListStudents(request, response);
+    }
+
+    private void onDeleteStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int studentId = Integer.parseInt(request.getParameter("studentId"));
+        studentDbUtil.deleteStudent(studentId);
         onListStudents(request, response);
     }
 }

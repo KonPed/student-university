@@ -74,6 +74,16 @@ public class StudentDbUtil {
         }
     }
 
+    public void deleteStudent(int studentId) {
+        String sql = "DELETE FROM web_student_tracker.student WHERE id = ?";
+        try (PreparedStatement preparedStatement = dbConnection().prepareStatement(sql)) {
+            preparedStatement.setInt(1, studentId);
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+    }
+
     public Connection dbConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost/web_student_tracker", "root", "deko");
     }

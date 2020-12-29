@@ -23,7 +23,7 @@
                     <th scope="col">First Name</th>
                     <th scope="col">Last Name</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" colspan="3">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,11 +32,17 @@
                         <c:param name="command" value="LOAD" />
                         <c:param name="studentId" value="${student.id}" />
                     </c:url>
+                    <c:url var="deleteLink" value="StudentControllerServlet">
+                        <c:param name="command" value="DELETE" />
+                        <c:param name="studentId" value="${student.id}" />
+                    </c:url>
                     <tr>
                         <td>${student.firstName}</td>
                         <td>${student.lastName}</td>
                         <td>${student.email}</td>
                         <td><a href="${tempLink}">Update</a></td>
+                        <td>|</td>
+                        <td><a onclick="if (!(confirm('Are you sure you want to delete this student?'))) return false" href="${deleteLink}">Delete</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
