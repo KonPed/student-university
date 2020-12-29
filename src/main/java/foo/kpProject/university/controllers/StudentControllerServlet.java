@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -26,18 +27,20 @@ public class StudentControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html");
         try {
-            Map<String, String[]> parameterMap = request.getParameterMap();
-            for (String[] params : parameterMap.values()) {
-                if (Arrays.asList(params).contains("ADD")) {
-                    /* TODO: handle add student operation (save a new student to database.) */
-                    System.out.println("Requested to add student.");
+            String command = request.getParameter("command");
+            if (command == null) {
+                command = "LIST";
+            }
+            switch (command) {
+                case "LIST":
+                    listStudents(request, response);
                     break;
-                }
+                case "ADD" :
+                    addStudent(request, response);
+                    break;
+                default:
+                    listStudents(request, response);
             }
-            if (parameterMap.values().contains("ADD")) {
-                System.out.println("Requested to add student.");
-            }
-            listStudents(request, response);
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
@@ -50,7 +53,11 @@ public class StudentControllerServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    private void addStudent(Student student) {
-
+    private void addStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String firstName = request.getParameter("first_name");
+        String lastName = request.getParameter("last_name");
+        String email = request.getParameter("email");
+        studentDbUtil.addStudent(new Student(firstName, lastName, email));
+        listStudents(request, response);
     }
 }
