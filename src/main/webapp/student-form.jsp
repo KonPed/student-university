@@ -5,20 +5,29 @@
         <div class="row align-items-start">
             <div class="col-md-6 offset-md-3">
                 <h3>Register Student</h3>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingFirstName" name="first_name"
-                           placeholder="name@example.com">
-                    <label for="floatingFirstName">First Name</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingLastName" name="last_name"
-                           placeholder="Password">
-                    <label for="floatingLastName">Last Name</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="Password">
-                    <label for="floatingEmail">Email</label>
-                </div>
+                <form action="StudentControllerServlet" method="get">
+                    <div class="form-floating mb-3 visually-hidden">
+                        <input type="text" class="form-control" id="hiddenCommand" name="command" value="ADD">
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingFirstName" name="first_name"
+                               placeholder="name@example.com">
+                        <label for="floatingFirstName">First Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingLastName" name="last_name"
+                               placeholder="Password">
+                        <label for="floatingLastName">Last Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="Password">
+                        <label for="floatingEmail">Email</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+            <div class="col-6">
+                <a href="index.jsp">Go Back</a>
             </div>
         </div>
     </div>
