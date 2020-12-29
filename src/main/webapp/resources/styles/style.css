@@ -3,5 +3,9 @@ body {
 }
 
 .main-screen {
-    margin: 100px;
+    margin: 20px;
+}
+
+.button_separator {
+    margin: 15px 0 15px;
 }
