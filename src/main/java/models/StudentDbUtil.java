@@ -42,6 +42,24 @@ public class StudentDbUtil {
         }
     }
 
+    public Student getStudentById(int studentId) {
+        Student loadedStudent = null;
+        String sql = "select * from web_student_tracker.student where id = ?";
+        try (PreparedStatement preparedStatement = dbConnection().prepareStatement(sql)) {
+            preparedStatement.setInt(1, studentId);
+            ResultSet result = preparedStatement.executeQuery();
+            while (result.next()) {
+                String loadedStudentFirstName = result.getString("first_name");
+                String loadedStudentLastName = result.getString("last_name");
+                String loadedStudentEmail = result.getString("email");
+                loadedStudent = new Student(loadedStudentFirstName, loadedStudentLastName, loadedStudentEmail);
+            }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+        return loadedStudent;
+    }
+
     public Connection dbConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost/web_student_tracker", "root", "deko");
     }

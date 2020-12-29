@@ -1,4 +1,5 @@
 <jsp:include page="layout/header.jsp"/>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="container">
     <div class="row">
@@ -10,17 +11,18 @@
                         <input type="text" class="form-control" id="hiddenCommand" name="command" value="ADD">
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingFirstName" name="first_name"
-                               placeholder="name@example.com">
+                        <input type="text" class="form-control" id="floatingFirstName" name="first_name" value="${requestScope.first_name}"
+                               placeholder="first_name">
                         <label for="floatingFirstName">First Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingLastName" name="last_name"
-                               placeholder="Password">
+                        <input type="text" class="form-control" id="floatingLastName" name="last_name" value="${requestScope.last_name}"
+                               placeholder="last_name">
                         <label for="floatingLastName">Last Name</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="Password">
+                        <input type="email" class="form-control" id="floatingEmail" name="email" value="${requestScope.email}"
+                               placeholder="email">
                         <label for="floatingEmail">Email</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Save</button>

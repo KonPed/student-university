@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet(name = "StudentControllerServlet", value = "/StudentControllerServlet")
 public class StudentControllerServlet extends HttpServlet {
@@ -33,31 +30,44 @@ public class StudentControllerServlet extends HttpServlet {
             }
             switch (command) {
                 case "LIST":
-                    listStudents(request, response);
+                    onListStudents(request, response);
                     break;
                 case "ADD" :
-                    addStudent(request, response);
+                    onAddStudent(request, response);
+                    break;
+                case "LOAD" :
+                    onLoadStudent(request, response);
                     break;
                 default:
-                    listStudents(request, response);
+                    onListStudents(request, response);
             }
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void listStudents(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void onListStudents(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Student> students = studentDbUtil.getStudents();
         request.setAttribute("STUDENT_LIST", students);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view-students.jsp");
         requestDispatcher.forward(request, response);
     }
 
-    private void addStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void onAddStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");
         String email = request.getParameter("email");
         studentDbUtil.addStudent(new Student(firstName, lastName, email));
-        listStudents(request, response);
+        onListStudents(request, response);
+    }
+
+    private void onLoadStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int studentId = Integer.parseInt(request.getParameter("studentId"));
+        Student loadedStudent = studentDbUtil.getStudentById(studentId);
+        request.setAttribute("first_name", loadedStudent.getFirstName());
+        request.setAttribute("last_name", loadedStudent.getLastName());
+        request.setAttribute("email", loadedStudent.getEmail());
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("student-form.jsp");
+        requestDispatcher.forward(request, response);
     }
 }
