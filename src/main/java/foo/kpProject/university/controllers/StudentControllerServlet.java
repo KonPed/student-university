@@ -64,10 +64,8 @@ public class StudentControllerServlet extends HttpServlet {
     private void onLoadStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int studentId = Integer.parseInt(request.getParameter("studentId"));
         Student loadedStudent = studentDbUtil.getStudentById(studentId);
-        request.setAttribute("first_name", loadedStudent.getFirstName());
-        request.setAttribute("last_name", loadedStudent.getLastName());
-        request.setAttribute("email", loadedStudent.getEmail());
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("student-form.jsp");
+        request.setAttribute("THE_STUDENT", loadedStudent);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("update-student-form.jsp");
         requestDispatcher.forward(request, response);
     }
 }
