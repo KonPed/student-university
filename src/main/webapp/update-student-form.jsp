@@ -7,7 +7,8 @@
                 <h3>Update Student Information</h3>
                 <form action="StudentControllerServlet" method="get">
                     <div class="form-floating mb-3 visually-hidden">
-                        <input type="text" class="form-control" id="hiddenCommand" name="command" value="UPDATE">
+                        <input type="text" class="form-control" name="command" value="UPDATE">
+                        <input type="text" class="form-control" name="studentId" value="${requestScope.THE_STUDENT.id}">
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="floatingFirstName" name="first_name" value="${requestScope.THE_STUDENT.firstName}"

@@ -35,7 +35,7 @@
                     <tr>
                         <td>${student.firstName}</td>
                         <td>${student.lastName}</td>
-                        <td>@${student.email}</td>
+                        <td>${student.email}</td>
                         <td><a href="${tempLink}">Update</a></td>
                     </tr>
                 </c:forEach>

@@ -49,15 +49,29 @@ public class StudentDbUtil {
             preparedStatement.setInt(1, studentId);
             ResultSet result = preparedStatement.executeQuery();
             while (result.next()) {
+                int loadedStudentId = result.getInt("id");;
                 String loadedStudentFirstName = result.getString("first_name");
                 String loadedStudentLastName = result.getString("last_name");
                 String loadedStudentEmail = result.getString("email");
-                loadedStudent = new Student(loadedStudentFirstName, loadedStudentLastName, loadedStudentEmail);
+                loadedStudent = new Student(loadedStudentId, loadedStudentFirstName, loadedStudentLastName, loadedStudentEmail);
             }
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
         return loadedStudent;
+    }
+
+    public void updateStudent(Student student) {
+        String sql = "UPDATE web_student_tracker.student SET first_name = ?, last_name = ?, email = ? WHERE id = ?";
+        try (PreparedStatement preparedStatement = dbConnection().prepareStatement(sql)) {
+            preparedStatement.setString(1, student.getFirstName());
+            preparedStatement.setString(2, student.getLastName());
+            preparedStatement.setString(3, student.getEmail());
+            preparedStatement.setInt(4, student.getId());
+            preparedStatement.execute();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
     }
 
     public Connection dbConnection() throws SQLException {

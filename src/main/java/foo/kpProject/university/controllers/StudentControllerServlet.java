@@ -38,6 +38,9 @@ public class StudentControllerServlet extends HttpServlet {
                 case "LOAD" :
                     onLoadStudent(request, response);
                     break;
+                case "UPDATE" :
+                    onUpdateStudent(request, response);
+                    break;
                 default:
                     onListStudents(request, response);
             }
@@ -67,5 +70,14 @@ public class StudentControllerServlet extends HttpServlet {
         request.setAttribute("THE_STUDENT", loadedStudent);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("update-student-form.jsp");
         requestDispatcher.forward(request, response);
+    }
+
+    private void onUpdateStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int studentId = Integer.parseInt(request.getParameter("studentId"));
+        String firstName = request.getParameter("first_name");
+        String lastName = request.getParameter("last_name");
+        String email = request.getParameter("email");
+        studentDbUtil.updateStudent(new Student(studentId, firstName, lastName, email));
+        onListStudents(request, response);
     }
 }
